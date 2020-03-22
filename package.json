@@ -3,7 +3,7 @@
 	"version": "0.0.0",
 	"scripts": {
 		"start": "node ./ng-add-pug-loader.js && ng serve",
-		"build": "node ./ng-add-pug-loader.js && ng build --prod",
+		"build": "node ./ng-add-pug-loader.js && ng build --prod --aot=true --build-optimizer=true --baseHref=/admin/",
 		"test": "ng test",
 		"lint": "ng lint",
 		"e2e": "ng e2e"
