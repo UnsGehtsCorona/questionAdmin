@@ -1,10 +1,10 @@
-import { Component, Directive, EventEmitter, HostListener, Inject, Input, OnChanges, OnDestroy, Output } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
-import { Subscription } from 'rxjs';
-import { ConfirmDialogConfig } from 'src/modules/shared/confirmDialog/model';
+import {Component, Directive, EventEmitter, HostListener, Inject, Input, OnChanges, OnDestroy, Output} from '@angular/core';
+import {Subscription} from 'rxjs';
+import {ConfirmDialogConfig} from 'src/modules/shared/components/confirmDialog/model';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 
 @Directive({
-	selector: '[aliConfirmDialog],aliConfirmDialog'
+	selector: '[appConfirmDialog],appConfirmDialog'
 })
 export class ConfirmDialogDirective implements OnChanges, OnDestroy {
 	@Output()
@@ -13,7 +13,7 @@ export class ConfirmDialogDirective implements OnChanges, OnDestroy {
 	@Output()
 	cancelAction: EventEmitter<void> = new EventEmitter();
 
-	@Input('aliConfirmDialog')
+	@Input('appConfirmDialog')
 	config: any; // Keep any - string 'aliConfirmDialog' will be bound if no custom config is given
 
 	private subscriptions: Subscription[] = [];
@@ -22,7 +22,7 @@ export class ConfirmDialogDirective implements OnChanges, OnDestroy {
 	}
 
 	ngOnChanges(): void {
-		if (this.config === 'aliConfirmDialog' || this.config === '') {
+		if (this.config === 'appConfirmDialog' || this.config === '') {
 			this.config = new ConfirmDialogConfig();
 		}
 	}
@@ -42,7 +42,7 @@ export class ConfirmDialogDirective implements OnChanges, OnDestroy {
 	}
 
 	openDialog(): any {
-		const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+		const dialogRef: MatDialogRef<ConfirmDialogComponent> = this.dialog.open(ConfirmDialogComponent, {
 			data: this.config
 		});
 		this.setCloseHandler(dialogRef);
@@ -62,7 +62,7 @@ export class ConfirmDialogDirective implements OnChanges, OnDestroy {
 }
 
 @Component({
-	selector: 'ali-confirm-dialog',
+	selector: 'app-confirm-dialog',
 	templateUrl: './confirm.dialog.component.pug',
 	styleUrls: ['./confirm.dialog.component.sass']
 })

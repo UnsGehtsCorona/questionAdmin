@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {QuestionService} from '../../services/question.service';
 import {QuestionModel} from '../../models/question.model';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
 
 
 @Component({
@@ -9,15 +11,21 @@ import {QuestionModel} from '../../models/question.model';
 	styleUrls: ['./question-list.component.sass']
 })
 export class QuestionListComponent implements OnInit {
+	loading: boolean = true;
+
 	questionList: QuestionModel[];
 
 	constructor(private questionService: QuestionService) {
 	}
 
 	ngOnInit(): void {
-		this.questionService.loadQuestionList().subscribe((data: QuestionModel[]) => {
-			this.questionList = data;
-		})
+		this.loadQuestions();
 	}
 
+	private loadQuestions() {
+		this.questionService.loadQuestionList().subscribe((data: QuestionModel[]) => {
+			this.questionList = data;
+			this.loading = false;
+		});
+	}
 }

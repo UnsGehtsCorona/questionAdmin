@@ -11,7 +11,7 @@ export interface HttpOptions {
 	reportProgress?: boolean;
 }
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class BaseJsonService {
 	protected options: HttpOptions = {
 		headers: new HttpHeaders({

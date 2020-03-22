@@ -1,0 +1,26 @@
+.container-fluid
+	.card.mat-elevation-z8(*ngIf="question")
+		.card-header
+			h2 Detailansicht
+		.card-body
+			.row
+				.col-12.content
+					strong Fragentext
+					span {{question.Question || '-'}}
+				.col-12
+					strong Sortierung
+					span {{question.Sort}}
+			h5 Antworten
+			.row
+				ng-container(*ngFor="let entry of question.Answers")
+					.col-12.content
+						strong Antworttext
+						span {{entry.Answer || '-'}}
+		.card-footer
+			.row
+				.col-3
+					a.btn.btn-primary([routerLink]="['/edit', question.Quid]")
+						| Frage editieren
+				.col-3.offset-6
+					button.btn.btn-danger.float-right(appConfirmDialog, (confirmAction)="deleteQuestion()")
+						| Frage löschen

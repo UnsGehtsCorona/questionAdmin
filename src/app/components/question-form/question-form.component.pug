@@ -1,0 +1,39 @@
+.container-fluid
+	.card.mat-elevation-z8
+		.card-header
+			h2 Neue Frage anlegen
+		form([formGroup]="questionForm", (ngSubmit)="submit()")
+			.card-body
+				.row
+					.col-6.form-group
+						label(for="QuestionText") Frage
+						input#QuestionText.form-control(type="text", formControlName="Question")
+					.col-6.form-group
+						label(for="QuestionSort") Sortierungsnummer
+						input#QuestionSort.form-control(type="number", formControlName="Sort")
+				h5 Antworten
+				.row(formArrayName="Answers")
+					ng-container(*ngFor="let entry of answerFormArray.controls; let i = index;")
+						ng-container([formGroupName]="i")
+							.col-8.form-group
+								label([for]="'AnswerText' + i") Antworttext
+								input.form-control([id]="'AnswerText' + i", type="text", formControlName="Answer")
+							.col-2.form-group
+								label([for]="'AnswerSort' + i") Antwort Sortierungsnummer
+								input.form-control(type="number", [id]="'AnswerSort' + i", formControlName="Sort", [value]="i + 1")
+							.col-2
+								button.btn.btn-small.btn-danger(
+									type="button",
+									(click)="removeAnswer(i)"
+								)
+									| X
+
+				.row
+					.col-3
+						button.btn.btn-small.btn-primary(type="button", (click)="addAnswer()")
+							| Antwort hinzufügen
+			.card-footer
+				.row
+					.col-12
+						button.btn.btn-primary(type="submit")
+							| Neue Frage speichern

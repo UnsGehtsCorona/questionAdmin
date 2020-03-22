@@ -1,3 +1,3 @@
 export const Config = {
-	backendURL: 'http://localhost'
+	backendURL: 'https://api.unsgehtscorona.de/'
 };

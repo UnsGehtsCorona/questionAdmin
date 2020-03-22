@@ -1,1 +1,11 @@
+nav.navbar.navbar-expand-sm.navbar-dark.sticky-top
+	.container-fluid
+		.collapse.navbar-collapse#collapsibleNavbar
+			ul.navbar-nav
+				li.nav-item
+					button.nav-link.toolbar-button-style(type="button", routerLink="/list" )
+						| Liste
+				li.nav-item
+					button.nav-link.toolbar-button-style(type="button", routerLink="/create" )
+						| Neue Frage anlegen
 router-outlet

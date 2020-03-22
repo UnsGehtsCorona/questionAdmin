@@ -1,39 +1,30 @@
-
 .container-fluid
 	.card.mat-elevation-z8
 		.card-header
 			.row
-				.col-md-6
-					h2
-				.col-md-3.offset-3
-					mat-form-field
-						input(matInput, (keyup)="applyFilter($event.target.value)", placeholder="Suche")
+				.col-md-9
+					h2 Fragenliste
+				.col-md-3
+					a.btn.btn-primary.float-right(routerLink="/create")
+						| Neue Frage anlegen
 		.card-body
-			ali-loader(*ngIf="loading" )
-			table.table-striped(mat-table, matSort, [dataSource]="dataSource", *ngIf="!loading" )
-				ng-container(matColumnDef="orderNumber")
-					th(mat-header-cell, *matHeaderCellDef, mat-sort-header="orderNumber") Bestellnummer
-					td(mat-cell, *matCellDef="let element" ) {{element.orderNumber}}
-				ng-container(matColumnDef="creationDate")
-					th(mat-header-cell, *matHeaderCellDef, mat-sort-header="creationDate") Bestelldatum
-					td(mat-cell, *matCellDef="let element") {{element.orderDate | date:'dd.MM.yyyy'}}
-				ng-container(matColumnDef="customerName")
-					th(mat-header-cell, *matHeaderCellDef, mat-sort-header="customerName") Kundenname
-					td(mat-cell, *matCellDef="let element") {{element.customerName}}
-				ng-container(matColumnDef="paid")
-					th(mat-header-cell, *matHeaderCellDef, mat-sort-header="paid") Bezahlt
-					td(mat-cell, *matCellDef="let element") {{element.paid ? 'Ja' : 'Nein' }}
-				ng-container(matColumnDef="status")
-					th(mat-header-cell, *matHeaderCellDef, mat-sort-header="status") Bestellstatus
-					td(mat-cell, *matCellDef="let element") {{element}}
-				ng-container(matColumnDef="controls")
-					th(mat-header-cell, *matHeaderCellDef)
-					td(mat-cell, *matCellDef="let element")
-						.table-controls-wrapper
-							a.button.infobutton.fa.fa-search([routerLink]="['/customer-order/details/', element.orderNumber]")
-							a.button.editbutton.fa.fa-pencil([routerLink]="['/customer-order/edit/', element.orderNumber]")
-							button.button.deletebutton.fa.fa-trash-o(type="button", appConfirmDialog, (confirmAction)="deleteOrder(element.orderNumber)")
-
-				tr(mat-header-row, *matHeaderRowDef="displayedColumns ")
-				tr(mat-row, *matRowDef="let row; columns: displayedColumns")
-			//mat-paginator([pageSizeOptions]="[10, 20, 30]", showFirstLastButtons)
+			.row
+				.col
+					table.table.table-striped(*ngIf="questionList")
+						thead
+							tr
+								th Fragen-ID
+								th Frage
+						tbody
+							ng-container(*ngFor="let question of questionList")
+								tr.link([routerLink]="['/detail', question.Quid]",
+									title="Zu den Fragendetails"
+								)
+									td
+										| {{ question.Quid }}
+									td
+										| {{ question.Question}}
+								ng-container(*ngIf="questionList.length === 0")
+									| Keine Fragen gefunden
+					ng-container(*ngIf="!questionList")
+						| Laden ...
