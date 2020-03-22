@@ -1,0 +1,12 @@
+h3(mat-dialog-title)
+	| {{ config.headline}}
+mat-dialog-content
+	.content([innerHTML]="config.text")
+//mat-dialog-actions
+.row
+	.col-md-12
+		button.button.deletebutton.pull-right(mat-button, mat-dialog-close="true")
+			| {{config.confirmButtonText}}
+
+		button.button.cancel.pull-right(mat-button, mat-dialog-close)
+			| {{config.cancelButtonText}}
